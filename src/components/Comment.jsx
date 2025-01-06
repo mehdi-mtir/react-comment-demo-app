@@ -1,16 +1,16 @@
-function Comment(){
+function Comment({avatar, name, date, text}){
     return(
         <div className="comment">
             <a className="avatar">
-                <img src="https://semantic-ui.com/images/avatar/small/matt.jpg" />
+                <img src={avatar} />
             </a>
             <div className="content">
-                <a className="author">Matt</a>
+                <a className="author">{name}</a>
                 <div className="metadata">
-                    <span className="date">Today at 5:42PM</span>
+                    <span className="date">{date}</span>
                 </div>
                 <div className="text">
-                    How artistic!
+                    {text}
                 </div>
             </div>
         </div>
