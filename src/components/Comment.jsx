@@ -1,5 +1,6 @@
 function Comment({avatar, name, date, text}){
     return(
+        <div className="ui comments">
         <div className="comment">
             <a className="avatar">
                 <img src={avatar} />
@@ -13,6 +14,7 @@ function Comment({avatar, name, date, text}){
                     {text}
                 </div>
             </div>
+        </div>
         </div>
     )
 }

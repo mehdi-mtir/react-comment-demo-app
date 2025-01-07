@@ -4,6 +4,10 @@
 
 /*Méthode 1
 class App extends React.Component {
+
+  state = {
+    comments = []
+  }
   render() {
     return (
       <div className="App">
@@ -30,32 +34,36 @@ class App extends React.Component {
 
 import Comment from "./components/Comment";
 import Card from "./components/Card";
+import {useState} from 'react';
 
 /*Méthode 2*/
 function App() {
-  var comments = [
-    {name: "Matt", date: "Today at 5:42PM", text: "How artistic!", avatar: "https://semantic-ui.com/images/avatar/small/matt.jpg"},
-    {name: "Elliot Fu", date: "Yesterday at 12:30AM", text: "This has been very useful for my research. Thanks as well!",  avatar: "https://semantic-ui.com/images/avatar/small/elliot.jpg"},
-    {name: "Jenny Hess", date: "Just now", text: "Elliot you are always so right :)", avatar: "https://semantic-ui.com/images/avatar/small/jenny.jpg"},
-    {name: "Joe Henderson", date: "5 days ago", text: "Dude, this is awesome. Thanks so much", avatar: "https://semantic-ui.com/images/avatar/small/joe.jpg"},
-  ]
+  //comments est désormais une variable d'état
+  //comments est une variable immutable
+  const [comments, setComments] = useState([
+    {id: 1,name: "Matt", date: "Today at 5:42PM", text: "How artistic!", avatar: "https://semantic-ui.com/images/avatar/small/matt.jpg", approuved : "pending"},
+    {id: 2,name: "Elliot Fu", date: "Yesterday at 12:30AM", text: "This has been very useful for my research. Thanks as well!",  avatar: "https://semantic-ui.com/images/avatar/small/elliot.jpg", approuved : "pending"},
+    {id: 3,name: "Jenny Hess", date: "Just now", text: "Elliot you are always so right :)", avatar: "https://semantic-ui.com/images/avatar/small/jenny.jpg", approuved : "pending"},
+    {id: 4,name: "Joe Henderson", date: "5 days ago", text: "Dude, this is awesome. Thanks so much", avatar: "https://semantic-ui.com/images/avatar/small/joe.jpg", approuved : "pending"},
+  ])
+
+  const declineComment = (id) => {
+    setComments(comments.filter(comment => comment.id !== id));
+    console.log(comments);
+  } 
 
   return (
     <>
       <h1>First React App</h1>
-      <div className="ui comments">
-            <h3 className="ui dividing header">Comments</h3>
+        <div className="ui cards"> 
             {
               comments.map(
-                (c)=><Comment {...c} />
+                (comment)=><Card key={comment.id} id={comment.id} declineCommentHandler={declineComment}>
+                    <Comment {...comment} />
+                  </Card>
               )
             }
-      </div>
-
-      <div class="ui cards">
-            <Card />
-            <Card />
-      </div>
+        </div>
     </>
   );
 }
